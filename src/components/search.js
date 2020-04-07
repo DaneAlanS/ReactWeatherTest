@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 
 function Search(props) {
+  function handleSubmit(event) {
+    console.log("SUBMISSION");
+    props.setSubmission(true);
+    event.preventDefault();
+    props.setNewLocation({
+      ...props.newLocation,
+      newCity: props.currentCity,
+      newState: props.currentState
+    });
+  }
+
   return (
     <div>
-      <form className="search-form">
+      <form className="search-form" onSubmit={handleSubmit}>
         <div className="search-wrapper">
           <input
             className="city-search"
@@ -35,6 +46,7 @@ function Search(props) {
             }
           ></input>
         </div>
+        <input type="submit" />
       </form>
     </div>
   );

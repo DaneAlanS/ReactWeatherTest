@@ -1,0 +1,23 @@
+.night {
+  transition: background-color 0.3s linear;
+  // -webkit-transition: background-image 0.3s linear;
+  // -moz-transition: background-image 0.3s linear;
+  // -o-transition: background-image 0.3s linear;
+  background: #3c4a90;
+}
+
+.bgnight {
+  transition: background-image 0.3s linear;
+  // -webkit-transition: background-image 0.3s linear;
+  // -moz-transition: background-image 0.3s linear;
+  // -o-transition: background-image 0.3s linear;
+  background-image: url("../../static/assets/backgrounds/clearnight.png");
+}
+
+.day {
+  transition: background-color 0.3s linear;
+  // -webkit-transition: background-image 0.3s linear;
+  // -moz-transition: background-image 0.3s linear;
+  // -o-transition: background-image 0.3s linear;
+  background: #96b4e4;
+}

@@ -18,7 +18,7 @@ body {
   height: 100%;
   width: 100%;
   z-index: 0;
-  filter: blur(10px);
+  filter: blur(5px);
   transform: scale(1.04);
 }
 
@@ -31,16 +31,24 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   width: 600px;
   height: 300px;
   border-radius: 20px;
+  border-top-left-radius: 0px;
 }
 
 .left-side,
 .right-side,
 .weather-wrapper {
   @include flex-column-centered;
+}
+
+.left-side {
+  transition: background-image 0.3s linear;
+  -webkit-transition: background-image 0.3s linear;
+  -moz-transition: background-image 0.3s linear;
+  -o-transition: background-image 0.3s linear;
 }
 
 h2 {
@@ -78,3 +86,5 @@ textarea:focus,
 input:focus {
   outline: none;
 }
+
+@import "./weather-imgs-colors.scss";

@@ -8,38 +8,56 @@ function Weather(props) {
   const [windSpeed, setWindSpeed] = useState("");
   const [windDirection, setWindDirection] = useState("");
   const [humidity, setHumidity] = useState("");
-  const [dayNight, setDayNight] = useState("");
   const [weatherIcon, setIcon] = useState("");
 
   function getWeatherItems() {
-    const apikey = "128bdf45e8a3726c1a2aaa7911146bbc";
+    const apikey = "2db9808f71504529d950a1129df05b4e";
     // function convertKelvin(weatherData) {
     //   return Math.round((weatherData * 9) / 5 - 459.67);
     // }
     Axios.get(
-      `http://api.weatherstack.com/current?access_key=${apikey}&query=${props.currentCity},${props.currentState}&units=f`
-    ).then(response => {
-      const current = response.data.current;
-      console.log(response);
+      `http://api.weatherstack.com/current?access_key=${apikey}&query=${props.newCity},${props.newState}&units=f`
+    )
+      .then(response => {
+        const current = response.data.current;
+        console.log(response);
 
-      const weatherDesc = setWeatherDesc(current.weather_descriptions[0]);
-      const tempature = setTemp(current.temperature);
-      const feelsLike = setFeelsLike(current.feelslike);
-      const windSpeed = setWindSpeed(current.wind_speed);
-      const windDirection = setWindDirection(current.wind_dir);
-      const humidity = setHumidity(current.humidity);
-      const dayNight = setDayNight(current.is_day);
-      const weatherIcon = setIcon(current.weather_icons[0]);
-    });
+        setWeatherDesc(current.weather_descriptions[0]);
+        setTemp(current.temperature);
+        setFeelsLike(current.feelslike);
+        setWindSpeed(current.wind_speed);
+        setWindDirection(current.wind_dir);
+        setHumidity(current.humidity);
+        props.setDayNight(current.is_day);
+        setIcon(current.weather_icons[0]);
+      })
+      .catch(console.log("API NOT SUCCESSFULL"));
+    console.log(
+      `http://api.weatherstack.com/current?access_key=${apikey}&query=${props.newCity},${props.newState}&units=f`
+    );
   }
 
   // Similar to componentDidMount and componentDidUpdate
   useEffect(() => {
-    getWeatherItems();
+    if (props.isSubmitted === true) {
+      console.log("submission weather.js");
+      getWeatherItems();
+      props.setSubmission(false);
+    }
   });
 
+  function contentWrapperColor() {
+    if (props.dayNight == "no") {
+      console.log("night");
+      return "content-wrapper night";
+    } else {
+      console.log("day");
+      return "content-wrapper day";
+    }
+  }
+
   return (
-    <div className="content-wrapper">
+    <div className={contentWrapperColor()}>
       <div
         className="left-side"
         style={{
@@ -47,7 +65,9 @@ function Weather(props) {
           backgroundImage: `url(${weatherIcon})`
         }}
       >
-        <h1>Norton, Kansas</h1>
+        <h1>
+          {props.currentCity}, {props.currentState}
+        </h1>
         <h3>Current Weather</h3>
         <h2>{weatherDesc}</h2>
         <div className="weather-wrapper">
